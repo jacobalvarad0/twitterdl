@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitter Screenshot Tool</title>
+    <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📸 Twitter Screenshot Tool</h1>
+            <p>Capture beautiful screenshots of tweets with custom settings</p>
+        </header>
+
+        <div class="main-content">
+            <div class="input-section">
+                <div class="url-input-group">
+                    <label for="urls">Tweet URLs or Embed HTML:</label>
+                    <textarea 
+                        id="urls" 
+                        placeholder="Enter tweet URLs (one per line) or paste embed HTML code:
+https://twitter.com/user/status/123456789
+https://x.com/user/status/987654321
+
+Or paste embed HTML:
+<blockquote class='twitter-tweet'>...</blockquote>"
+                        rows="6"
+                    ></textarea>
+                </div>
+
+                <div class="settings-grid">
+                    <!-- Width Settings -->
+                    <div class="setting-group">
+                        <label for="width-input">Width:</label>
+                        <div class="width-control-group">
+                            <input 
+                                type="number" 
+                                id="width-input" 
+                                value="600" 
+                                min="300" 
+                                max="1200" 
+                                step="10"
+                                class="width-number-input"
+                            >
+                            <span class="width-unit">px</span>
+                        </div>
+                        <input 
+                            type="range" 
+                            id="width-slider" 
+                            min="300" 
+                            max="1200" 
+                            value="600" 
+                            step="10"
+                            class="width-slider"
+                        >
+                        <div class="width-presets">
+                            <button class="preset-btn" data-width="400">Small</button>
+                            <button class="preset-btn" data-width="600">Medium</button>
+                            <button class="preset-btn" data-width="800">Large</button>
+                            <button class="preset-btn" data-width="1000">XL</button>
+                        </div>
+                    </div>
+
+                    <!-- Format Settings -->
+                    <div class="setting-group">
+                        <label>Format:</label>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="format" value="png" checked>
+                                <span class="radio-custom"></span>
+                                PNG
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="format" value="jpg">
+                                <span class="radio-custom"></span>
+                                JPG
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Theme Settings -->
+                    <div class="setting-group">
+                        <label>Theme:</label>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="theme" value="light" checked>
+                                <span class="radio-custom"></span>
+                                Light
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="theme" value="dark">
+                                <span class="radio-custom"></span>
+                                Dark
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Background Settings -->
+                    <div class="setting-group">
+                        <label for="background">Background:</label>
+                        <select id="background" class="select-input">
+                            <option value="white">White</option>
+                            <option value="transparent">Transparent</option>
+                            <option value="#f0f0f0">Light Gray</option>
+                            <option value="#000000">Black</option>
+                            <option value="#1da1f2">Twitter Blue</option>
+                        </select>
+                    </div>
+
+                    <!-- Border Radius Settings -->
+                    <div class="setting-group">
+                        <label for="border-radius">Border Radius:</label>
+                        <div class="range-input-group">
+                            <input 
+                                type="range" 
+                                id="border-radius" 
+                                min="0" 
+                                max="50" 
+                                value="12" 
+                                class="range-slider"
+                            >
+                            <span class="range-value" id="border-radius-value">12px</span>
+                        </div>
+                    </div>
+
+                    <!-- Additional Options -->
+                    <div class="setting-group">
+                        <label class="checkbox-option">
+                            <input type="checkbox" id="include-metadata" checked>
+                            <span class="checkbox-custom"></span>
+                            Include metadata in filename
+                        </label>
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button id="capture-btn" class="primary-btn">
+                        <span class="btn-text">📸 Capture Screenshots</span>
+                        <div class="spinner" style="display: none;"></div>
+                    </button>
+                    <button id="clear-btn" class="secondary-btn">Clear All</button>
+                </div>
+            </div>
+
+            <div class="results-section">
+                <div class="results-header">
+                    <h2>Results</h2>
+                    <div class="results-stats" id="results-stats" style="display: none;">
+                        <span class="stat">Success: <strong id="success-count">0</strong></span>
+                        <span class="stat">Failed: <strong id="failed-count">0</strong></span>
+                        <span class="stat">Total: <strong id="total-count">0</strong></span>
+                    </div>
+                </div>
+
+                <div id="results" class="results-grid"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+</body>
+</html>

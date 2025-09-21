@@ -1,0 +1,33 @@
+services:
+  app:
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - DEBUG=false
+      - HOST=0.0.0.0
+      - PORT=8000
+      - ALLOWED_HOSTS=localhost,127.0.0.1,0.0.0.0
+      - CORS_ORIGINS=http://localhost:8000
+      - MAX_CONCURRENT_SCREENSHOTS=3
+      - SCREENSHOT_TIMEOUT=30
+      - TEMP_DIR=/tmp/screenshots
+    volumes:
+      - ./frontend:/app/frontend:ro
+      - screenshot_cache:/tmp/screenshots
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+volumes:
+  screenshot_cache:
+
+networks:
+  default:
+    name: tweet_screenshot_network
